@@ -71,3 +71,14 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Features Support
+- [x] Load configuration from .env.* files
+- [x] Postgresql connection
+- [x] MongoDB connection
+- [x] JWT Authentication, Role Base Authorization
+- [x] Firebase Initialize and connect to Authentication
+
+## Other rules
+- [] Unit test
+- [x] eslint with prettier
