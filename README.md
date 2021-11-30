@@ -78,7 +78,8 @@ Nest is [MIT licensed](LICENSE).
 - [x] MongoDB connection
 - [x] JWT Authentication, Role Base Authorization
 - [x] Firebase Initialize and connect to Authentication
+- [x] Swagger (OpenAPI)
 
 ## Other rules
-- [] Unit test
+- [ ] Unit test
 - [x] eslint with prettier
