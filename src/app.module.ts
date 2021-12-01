@@ -6,6 +6,7 @@ import { UsersModule } from './module/users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration.config';
+import { Connection } from 'typeorm';
 
 const ENV = process.env.NODE_ENV;
 
@@ -36,4 +37,6 @@ const ENV = process.env.NODE_ENV;
 	controllers: [AppController],
 	providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+	constructor(private connection: Connection) {}
+}
