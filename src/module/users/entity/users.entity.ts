@@ -43,6 +43,9 @@ export class Users {
 	@Column()
 	address: string;
 
+	@Column({ nullable: true })
+	shops: string;
+
 	@Column()
 	roles: string;
 

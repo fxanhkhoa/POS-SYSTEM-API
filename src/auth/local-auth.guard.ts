@@ -7,10 +7,11 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import * as firebaseAdmin from 'firebase-admin';
 import { UsersService } from 'src/module/users/users.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
-	constructor(private userService: UsersService) {
+	constructor(private usersService: UsersService) {
 		super();
 	}
 	async canActivate(context: ExecutionContext) {
@@ -29,7 +30,9 @@ export class LocalAuthGuard extends AuthGuard('local') {
 				picture: decodedToken.picture,
 				googleName: decodedToken.name
 			};
-			const user = await this.userService.findByEmail(decodedToken.email);
+			const user = await this.usersService.findByEmail(
+				decodedToken.email
+			);
 			if (user) {
 				request.user = {
 					...request.user,

@@ -5,12 +5,13 @@ import {
 	HttpException,
 	HttpStatus,
 	Post,
+	Put,
 	Request,
 	UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
-import { CreateUserDto } from './dto/user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -39,5 +40,12 @@ export class UsersController {
 	@ApiBearerAuth()
 	async signUp(@Request() req, @Body() dto: CreateUserDto) {
 		return await this.userService.signUp(dto, req.user);
+	}
+
+	@UseGuards(LocalAuthGuard)
+	@Put('')
+	@ApiBearerAuth()
+	async updateUser(@Request() req, @Body() dto: UpdateUserDto) {
+		return await this.userService.updateUser(dto, req.user);
 	}
 }

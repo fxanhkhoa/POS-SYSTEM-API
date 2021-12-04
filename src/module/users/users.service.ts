@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from 'src/shared/enum/role.enum';
 import { IProfile } from 'src/shared/model/profile.model';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { Users } from './entity/users.entity';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UsersService {
 	}
 
 	async signUp(dto: CreateUserDto, profile: IProfile) {
-		const foundUser = this.usersRepository.findOne({
+		const foundUser = await this.usersRepository.findOne({
 			email: profile.email,
 			deleted: false
 		});
@@ -29,6 +29,7 @@ export class UsersService {
 			...dto,
 			email: profile.email,
 			uid: profile.uid,
+			shops: null,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			deletedAt: null,
@@ -39,5 +40,12 @@ export class UsersService {
 			roles: `${Role.USER}`
 		};
 		return this.usersRepository.insert(userDto);
+	}
+
+	async updateUser(dto: UpdateUserDto, profile: IProfile) {
+		return this.usersRepository.update(
+			{ email: profile.email, deleted: false },
+			dto
+		);
 	}
 }

@@ -7,6 +7,11 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration.config';
 import { Connection } from 'typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ShopModule } from './module/shop/shop.module';
+import { ProductModule } from './module/product/product.module';
+import { InvoiceModule } from './module/invoice/invoice.module';
+import { SharedModule } from './shared/shared.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -31,8 +36,19 @@ const ENV = process.env.NODE_ENV;
 			}),
 			inject: [ConfigService]
 		}),
+		MongooseModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: async () => ({
+				uri: process.env.MONGODB_CONNECTION_STRING,
+				autoIndex: true
+			}),
+			inject: [ConfigService]
+		}),
 		UsersModule,
-		AuthModule
+		AuthModule,
+		ShopModule,
+		ProductModule,
+		InvoiceModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
