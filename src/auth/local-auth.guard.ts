@@ -7,7 +7,6 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import * as firebaseAdmin from 'firebase-admin';
 import { UsersService } from 'src/module/users/users.service';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {

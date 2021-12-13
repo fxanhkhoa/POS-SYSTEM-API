@@ -25,8 +25,10 @@ export class UsersController {
 	async getProfile(@Request() req) {
 		const user = await this.userService.findByEmail(req.user.email);
 		if (user) {
-			delete user.roles;
-			return user;
+			return {
+				...user,
+				...req.user
+			};
 		} else {
 			throw new HttpException(
 				'Error getting profile',
